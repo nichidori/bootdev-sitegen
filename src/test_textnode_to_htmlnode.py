@@ -6,27 +6,27 @@ from leafnode import LeafNode
 
 
 class TestTextNodeToHtmlNode(unittest.TestCase):
-    def test_plain_text_conversion(self):
-        node = TextNode("This is a text node", TextType.PLAIN)
+    def test_text_conversion(self):
+        node = TextNode("This is a text node", TextType.TEXT)
         html_node = text_node_to_html_node(node)
         self.assertEqual(html_node.tag, None)
         self.assertEqual(html_node.value, "This is a text node")
         self.assertIsNone(html_node.props)
 
-    def test_plain_text_with_special_characters(self):
-        node = TextNode("Hello <world> & 'friends'", TextType.PLAIN)
+    def test_text_with_special_characters(self):
+        node = TextNode("Hello <world> & 'friends'", TextType.TEXT)
         html_node = text_node_to_html_node(node)
         self.assertEqual(html_node.tag, None)
         self.assertEqual(html_node.value, "Hello <world> & 'friends'")
 
-    def test_plain_text_empty_string(self):
-        node = TextNode("", TextType.PLAIN)
+    def test_text_empty_string(self):
+        node = TextNode("", TextType.TEXT)
         html_node = text_node_to_html_node(node)
         self.assertEqual(html_node.value, "")
         self.assertIsNone(html_node.tag)
 
-    def test_plain_text_with_numbers(self):
-        node = TextNode("12345 67.89", TextType.PLAIN)
+    def test_text_with_numbers(self):
+        node = TextNode("12345 67.89", TextType.TEXT)
         html_node = text_node_to_html_node(node)
         self.assertEqual(html_node.value, "12345 67.89")
 
@@ -151,13 +151,13 @@ class TestTextNodeToHtmlNode(unittest.TestCase):
         self.assertEqual(html_node.props["src"], data_url)
 
     def test_returns_leafnode_instance(self):
-        node = TextNode("text", TextType.PLAIN)
+        node = TextNode("text", TextType.TEXT)
         html_node = text_node_to_html_node(node)
         self.assertIsInstance(html_node, LeafNode)
 
     def test_all_types_return_leafnode(self):
         test_cases = [
-            (TextType.PLAIN, "plain", None),
+            (TextType.TEXT, "text", None),
             (TextType.BOLD, "bold", None),
             (TextType.ITALIC, "italic", None),
             (TextType.CODE, "code", None),
@@ -175,19 +175,19 @@ class TestTextNodeToHtmlNode(unittest.TestCase):
 
     def test_long_text_content(self):
         long_text = "a" * 1000
-        node = TextNode(long_text, TextType.PLAIN)
+        node = TextNode(long_text, TextType.TEXT)
         html_node = text_node_to_html_node(node)
         self.assertEqual(html_node.value, long_text)
 
     def test_text_with_newlines(self):
         text_with_newlines = "Line 1\nLine 2\nLine 3"
-        node = TextNode(text_with_newlines, TextType.PLAIN)
+        node = TextNode(text_with_newlines, TextType.TEXT)
         html_node = text_node_to_html_node(node)
         self.assertEqual(html_node.value, text_with_newlines)
 
     def test_text_with_tabs(self):
         text_with_tabs = "Column1\tColumn2\tColumn3"
-        node = TextNode(text_with_tabs, TextType.PLAIN)
+        node = TextNode(text_with_tabs, TextType.TEXT)
         html_node = text_node_to_html_node(node)
         self.assertEqual(html_node.value, text_with_tabs)
 
@@ -227,7 +227,7 @@ class TestTextNodeToHtmlNode(unittest.TestCase):
 
     def test_unicode_text_conversion(self):
         unicode_text = "Hello 世界 🌍"
-        node = TextNode(unicode_text, TextType.PLAIN)
+        node = TextNode(unicode_text, TextType.TEXT)
         html_node = text_node_to_html_node(node)
         self.assertEqual(html_node.value, unicode_text)
 
