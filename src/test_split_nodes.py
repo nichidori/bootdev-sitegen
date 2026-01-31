@@ -53,11 +53,9 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         node = TextNode("`code1` and `code2`", TextType.TEXT)
         actual_new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
         expected_new_nodes = [
-            TextNode("", TextType.TEXT),
             TextNode("code1", TextType.CODE),
             TextNode(" and ", TextType.TEXT),
             TextNode("code2", TextType.CODE),
-            TextNode("", TextType.TEXT),
         ]
         self.assertEqual(actual_new_nodes, expected_new_nodes)
 
@@ -65,7 +63,6 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         node = TextNode("`code` at start", TextType.TEXT)
         actual_new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
         expected_new_nodes = [
-            TextNode("", TextType.TEXT),
             TextNode("code", TextType.CODE),
             TextNode(" at start", TextType.TEXT),
         ]
@@ -77,7 +74,6 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         expected_new_nodes = [
             TextNode("end with ", TextType.TEXT),
             TextNode("code", TextType.CODE),
-            TextNode("", TextType.TEXT),
         ]
         self.assertEqual(actual_new_nodes, expected_new_nodes)
 
