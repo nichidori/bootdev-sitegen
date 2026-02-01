@@ -127,8 +127,7 @@ class TestTextNodeToHtmlNode(unittest.TestCase):
         node = TextNode("alt text", TextType.IMAGE, url="https://example.com/image.png")
         html_node = text_node_to_html_node(node)
         self.assertEqual(html_node.tag, "img")
-        self.assertEqual(html_node.value, "alt text")
-        self.assertEqual(html_node.props, {"src": "https://example.com/image.png"})
+        self.assertEqual(html_node.props, {"src": "https://example.com/image.png", "alt": node.text})
 
     def test_image_with_relative_path(self):
         node = TextNode("logo", TextType.IMAGE, url="/images/logo.png")
@@ -214,7 +213,7 @@ class TestTextNodeToHtmlNode(unittest.TestCase):
     def test_image_html_rendering(self):
         node = TextNode("test image", TextType.IMAGE, url="test.png")
         html_node = text_node_to_html_node(node)
-        self.assertEqual(html_node.to_html(), '<img src="test.png">test image</img>')
+        self.assertEqual(html_node.to_html(), '<img src="test.png" alt="test image"></img>')
 
     def test_invalid_text_type_raises_exception(self):
         class InvalidTextType:

@@ -35,11 +35,6 @@ class TestLeafNode(unittest.TestCase):
         with self.assertRaises(ValueError):
             node.to_html()
 
-    def test_to_html_empty_string_value_raises_error(self):
-        node = LeafNode("p", "")
-        with self.assertRaises(ValueError):
-            node.to_html()
-
     def test_props_to_html_inherited(self):
         node = LeafNode("div", "Content", props={"id": "main", "class": "container"})
         props_html = node.props_to_html()
