@@ -1,9 +1,13 @@
 import os
 import shutil
 
+from generate_page import generate_page
+
 
 def main():
     copy_content(os.getcwd(), "static", "public")
+    
+    generate_page("content/index.md", "template.html", "public/index.html")
 
 
 def copy_content(directory, src, dst):
